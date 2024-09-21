@@ -7,9 +7,16 @@ const path = require('path');
 let index = require('./routes/index');
 let image = require('./routes/image');
 
+cfg = require('./_config.js');
+
+
 // connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
+if(process.env.NODE_ENV == 'production') { 
+    var mongodb_url = cfg.mongoURI.production;
+} else {
+    var mongodb_url = cfg.mongoURI.development;  
+}
+let dbName = 'devops-class-cluster';
 mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
     if (err) console.log(err)
 });
