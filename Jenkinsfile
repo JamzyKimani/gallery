@@ -4,10 +4,9 @@ pipeline {
         stage ('build') {
             steps { 
                 git 'https://github.com/JamzyKimani/gallery.git'
-            }
-            steps { 
                 sh 'npm install'
             }
+            
         }
         
         stage ('test') {
