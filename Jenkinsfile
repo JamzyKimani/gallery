@@ -34,7 +34,13 @@ pipeline {
         failure {
             mail to: 'mail4jameskimani@gmail.com',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Build # ${currentBuild.fullDisplayName} - ${currentBuild.result}! <br> Something is wrong with the build, Check console output at ${env.BUILD_URL}"
+                 body: "Build # ${JOB_NAME} - ${currentBuild.result}! <br> Something is wrong with the build, Check console output at ${env.BUILD_URL}"
+        }
+        
+        success {
+            slackSend channel: '#kimani_ip1',
+                      color: 'good',
+                      message: "The pipeline ${currentBuild.fullDisplayName} completed successfully (Build ID is ${BUILD_ID}). Visit the deployed app on url: https://gallery-2afi.onrender.com"
         }
     }
 }
