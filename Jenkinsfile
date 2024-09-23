@@ -17,7 +17,7 @@ pipeline {
         stage ('test') {
             steps { 
                 echo 'testing application'
-                sh 'npm test'
+                sh 'npm tet'
             }
         }
         
@@ -28,5 +28,13 @@ pipeline {
             }
         }
         
+    }
+    
+    post {
+        failure {
+            mail to: 'mail4jameskimani@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Build # ${currentBuild.fullDisplayName} - ${currentBuild.result}! <br> Something is wrong with the build, Check console output at ${env.BUILD_URL}"
+        }
     }
 }
